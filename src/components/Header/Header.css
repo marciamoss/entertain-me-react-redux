@@ -1,0 +1,15 @@
+.login {
+  height: 55px !important;
+  margin: 0 !important;
+  background-color: green !important;
+}
+
+.logout {
+  height: 55px !important;
+  margin: 0 !important;
+  background-color: red !important;
+}
+
+.user-name {
+  margin: 0;
+}
