@@ -1,24 +1,28 @@
-import { AUTH_CHANGE } from './types';
+import jwt_decode from "jwt-decode";
 
-export const authChange = () => async dispatch => {   
-  window.gapi.load('client:auth2', () => {
-    window.gapi.client
-    .init({
-      clientId:
-        '526973545082-tq3so0e5fc1rilc26f7vb50on5f2cgp6.apps.googleusercontent.com',
-      scope: 'email',
-      plugin_name:'entertain-me-react-redux'
-    })
-    .then(async () => {
-      const auth = window.gapi.auth2.getAuthInstance();
-      if(!auth.isSignedIn.get()) {
-        await auth.signIn();
-        dispatch({ type: AUTH_CHANGE, payload: {userId: auth.currentUser.get().getId(), userName: auth.currentUser.get().getBasicProfile().getName()} });
-      } else {
-        await auth.signOut();
-        dispatch({ type: AUTH_CHANGE, payload: {userId: null, userName: null} });
+import { AUTH_CHANGE, userDeclinedlogin } from './types';
+
+export const authChange = () => async (dispatch, getState) => {
+  if (getState().auth.userId) {
+    window.google.accounts.id.revoke(getState().auth.userId, () => {
+      dispatch({ type: AUTH_CHANGE, payload: {userId: null, userName: null} });
+    });
+  }
+  else {
+    const handleGoogleSignIn = (response) => {
+      const responsePayload = jwt_decode(response.credential);
+      dispatch({ type: AUTH_CHANGE, payload: {userId: responsePayload.sub, userName: responsePayload.name} });
+    }
+    await window.google.accounts.id.initialize({
+      client_id: '526973545082-tq3so0e5fc1rilc26f7vb50on5f2cgp6.apps.googleusercontent.com',
+      callback: handleGoogleSignIn,
+      auto_select: false
+    });
+    await window.google.accounts.id.prompt(response => {
+      const authFail = Object.values(response).filter(r => userDeclinedlogin.indexOf(r)>=0);
+      if (authFail.length > 0) {
+        dispatch({ type: AUTH_CHANGE, payload: {userId: authFail[0], userName: null} });
       }
-    }).catch(e => console.log("google sigin incomplete", e));
-  });
+    });
+  }
 }
-
