@@ -26,8 +26,6 @@ export const authChange = () => async (dispatch, getState) => {
           dispatch({ type: AUTH_CHANGE, payload: {userId: response.getNotDisplayedReason(), userName: null, showError: true} });
         } else if(response.isSkippedMoment()){
           dispatch({ type: AUTH_CHANGE, payload: {userId: response.getSkippedReason(), userName: null, showError: true} });
-        } else if(response.isDismissedMoment()){
-          dispatch({ type: AUTH_CHANGE, payload: {userId: response.getDismissedReason(), userName: null, showError: true} });
         }
       }
     });
