@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 
-import { AUTH_CHANGE, CLOSE_ERROR_MODAL, userDeclinedlogin } from './types';
+import { AUTH_CHANGE, CLOSE_ERROR_MODAL } from './types';
 
 export const authChange = () => async (dispatch, getState) => {
   if (getState().auth.userId) {
@@ -21,9 +21,14 @@ export const authChange = () => async (dispatch, getState) => {
       auto_select: false
     });
     await window.google.accounts.id.prompt(response => {
-      const authFail = Object.values(response).filter(r => userDeclinedlogin.indexOf(r)>=0);
-      if (authFail.length > 0) {
-        dispatch({ type: AUTH_CHANGE, payload: {userId: authFail[0], userName: null, showError: true} });
+      if (response.isNotDisplayed() || response.isSkippedMoment() || response.isDismissedMoment()) {
+        if(response.isNotDisplayed()) {
+          dispatch({ type: AUTH_CHANGE, payload: {userId: response.getNotDisplayedReason(), userName: null, showError: true} });
+        } else if(response.isSkippedMoment()){
+          dispatch({ type: AUTH_CHANGE, payload: {userId: response.getSkippedReason(), userName: null, showError: true} });
+        } else if(response.isDismissedMoment()){
+          dispatch({ type: AUTH_CHANGE, payload: {userId: response.getDismissedReason(), userName: null, showError: true} });
+        }
       }
     });
   }
