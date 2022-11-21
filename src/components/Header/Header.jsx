@@ -19,7 +19,7 @@ const Header = ({userId, userName, authChange, showError, closeModal}) =>
                   <i className="google icon" />
                   {userId ? "Sign out" : 'Sign In with Google'}
               </button>
-            </> : <p className="item user-name">SIGN IN FAILED DUE TO: {userId}. <br/>CLEAR CACHE AND REFRESH THE PAGE TO RETRY</p>}
+            </> : ''}
         </>
       }
     </div>
