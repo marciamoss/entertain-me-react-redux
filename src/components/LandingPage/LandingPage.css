@@ -1,8 +1,23 @@
-.field-label {
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
-  font-size: 25px !important;
-  color: rgba(0,0,0,.85) !important;
+body {
+  background-color: rgb(253, 208, 182) ;
+}
+
+.landing-page-content {
   margin-top: 10% !important;
-  margin-bottom: 5% !important;
+  font-size: 2rem;
   text-align: center;
+}
+
+.landing-page-items {
+  margin-top: 1% !important;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.link {
+  margin: 0 5rem 1em;
+  line-height: 1.4285em;
+  font-size: 1.5rem !important;
+  font-weight: bold;
+  font-style: italic;
 }
