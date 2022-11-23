@@ -7,3 +7,8 @@
 .home-button {
   text-align: left;
 }
+
+.song-list {
+  text-align: left;
+  background-color: inherit !important;
+}

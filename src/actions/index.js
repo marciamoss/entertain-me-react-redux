@@ -1,6 +1,12 @@
 import jwt_decode from "jwt-decode";
 
-import { AUTH_CHANGE, CLOSE_ERROR_MODAL } from './types';
+import { AUTH_CHANGE, CLOSE_ERROR_MODAL, FETCH_SONGS, SET_SONG } from './types';
+
+require("dotenv").config();
+let Spotify = require('node-spotify-api');
+
+let keys = require("../keys.js");
+let spotify = new Spotify(keys.spotify);
 
 export const authChange = () => async (dispatch, getState) => {
   if (getState().auth.userId) {
@@ -32,4 +38,41 @@ export const authChange = () => async (dispatch, getState) => {
   }
 }
 
-export const closeErrorModal = (close) => ({type: CLOSE_ERROR_MODAL, payload: { close }})
+export const closeErrorModal = (close) => ({type: CLOSE_ERROR_MODAL, payload: { close }});
+
+export const setSong = (song) => ({ type: SET_SONG, payload: {song: song, songsList: []} });
+
+export const getSongs = (song) => async (dispatch) => {
+  if(song) {
+    let songName = (song).split(' ').join("+");
+    let songsList = [];
+    try {
+      const response = await spotify.search({ type: 'track', query: songName });
+      if(response.tracks.items.length === 0 ) {
+        songsList.push({
+          id: 'NO SONGS FOUND999999',
+          name: 'NO SONGS FOUND'
+        });
+      } else {
+        response.tracks.items.forEach(element => {
+          let preview_url;
+          if(element.preview_url === null) {
+            preview_url = element.external_urls.spotify;
+          } else {
+            preview_url = element.preview_url;
+          }
+          songsList.push({
+            id: element.id,
+            artist: element.album.artists[0].name,
+            name: element.name,
+            album: element.album.name,
+            preview_url
+          });
+        });
+      }
+    } catch (error) {
+      songsList = [];
+    }
+    dispatch({ type: FETCH_SONGS, payload: {song, songsList} });
+  }
+}
