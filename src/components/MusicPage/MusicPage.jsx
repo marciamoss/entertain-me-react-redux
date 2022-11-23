@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { Icon, List, Segment } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 import { setSong, getSongs } from '../../actions';
 import "./MusicPage.css";
+import RenderedList from "../RenderedList/RenderedList";
+import LandingPage from "../LandingPage/LandingPage";
 
-const MusicPage = ({setSong, song, getSongs, songsList}) => {
+const MusicPage = ({setSong, song, getSongs, loginError}) => {
   useEffect(() => {
     const timerId = setTimeout(() => {
         getSongs(song);
@@ -16,6 +18,10 @@ const MusicPage = ({setSong, song, getSongs, songsList}) => {
       clearTimeout(timerId);
     };
   }, [song, getSongs]);
+
+  if (loginError) {
+    return <LandingPage/>
+  }
 
   return (
     <div className="ui container music-page-content">
@@ -33,31 +39,12 @@ const MusicPage = ({setSong, song, getSongs, songsList}) => {
             />
         </div>
       </div>
-      <>
-        {(songsList?.length > 0) ?
-          <Segment className="song-list">
-            <List divided relaxed size='large'>
-              {songsList?.map((s) => (
-                <List.Item key={s.id}>
-                  <List.Content>
-                  {s.id === "NO SONGS FOUND999999" ? <List.Header>{s.name}</List.Header> :
-                    <>
-                      <List.Header>Name: {s.name}</List.Header>
-                      Artist: {s.artist}, Album: {s.album},<a href={s.preview_url} target="blank"> Click for a preview</a>
-                    </>
-                  }
-                  </List.Content>
-                </List.Item>
-              ))}
-            </List>
-          </Segment>
-        : ''}
-      </>
+      <RenderedList/>
     </div>
   )
 }
 
-const mapStateToProps = state => ({ song: state.getSong.song, songsList: state.getSong.songsList });
+const mapStateToProps = state => ({ song: state.getSong.song, loginError: state.auth.showError });
 
 export default connect(
   mapStateToProps,

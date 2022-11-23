@@ -71,7 +71,7 @@ export const getSongs = (song) => async (dispatch) => {
         });
       }
     } catch (error) {
-      songsList = [];
+      songsList = [{id: 'API ERROREDd999999', name: 'API ERRORED, Please try again'}];
     }
     dispatch({ type: FETCH_SONGS, payload: {song, songsList} });
   }

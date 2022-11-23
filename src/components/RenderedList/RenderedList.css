@@ -1,0 +1,10 @@
+.song-list {
+  text-align: left;
+  background-color: inherit !important;
+}
+
+.no-data {
+  color: red !important;
+  font-size: 2rem;
+  text-align: center;
+}

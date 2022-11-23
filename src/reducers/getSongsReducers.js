@@ -8,9 +8,9 @@ const INTIAL_STATE = {
 const getSongsReducers = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_SONGS:
-      return { ...state, songsList: action.payload.songsList, song: action.payload.song, debouncedSongName: action.payload.debouncedSongName};
+      return { ...state, songsList: action.payload.songsList, song: action.payload.song};
     case SET_SONG:
-      return { ...state, songsList: action.payload.songsList, song: action.payload.song, debouncedSongName: action.payload.debouncedSongName};
+      return { ...state, songsList: action.payload.songsList, song: action.payload.song};
     default:
       return state;
   }
