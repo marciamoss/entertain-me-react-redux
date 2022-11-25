@@ -1,5 +1,5 @@
-.music-page-content {
-  font-size: 1.5rem;
+.news-page-content {
+  font-size: 1.5rem; 
   text-align: center;
   position: relative;
   top: 70px !important;
@@ -12,10 +12,14 @@
 
 .home-icon-alignment {
   position: relative;
-  top: -11px !important;
-  left: -11px !important;
+  top: -15px !important;
+  left: -11px !important; 
 }
 
 .home-button {
+  background-color: inherit !important;
+}
+
+.section{
   background-color: inherit !important;
 }

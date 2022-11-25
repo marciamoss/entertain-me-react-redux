@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { Icon } from 'semantic-ui-react';
+import { Icon, Button } from 'semantic-ui-react';
 
-import { setSong, getSongs } from '../../actions';
+import { setSong, getSongs, backToLanding } from '../../actions';
 import "./MusicPage.css";
 import RenderedList from "../RenderedList/RenderedList";
 import LandingPage from "../LandingPage/LandingPage";
 
-const MusicPage = ({setSong, song, getSongs, loginError}) => {
+const MusicPage = ({setSong, song, getSongs, loginError, backToLanding}) => {
   useEffect(() => {
     const timerId = setTimeout(() => {
         getSongs(song);
@@ -25,12 +25,14 @@ const MusicPage = ({setSong, song, getSongs, loginError}) => {
 
   return (
     <div className="ui container music-page-content">
-      <div className="home-button">
-        <Link to="/"><Icon name='home' size='small' /></Link>
+      <div className="home-button-alignment">
+      <Button onClick ={backToLanding} className="home-button" icon>
+        <Link to="/"><Icon name='home' className="home-icon-alignment" color="brown" size='big'/></Link>
+      </Button>
       </div>
       <div className="ui form container">
         <div className="field">
-            <h2 className="field-label">Song</h2>
+            <h2 className="field-label">Find a song</h2>
             <input
             value={song}
             placeholder="Song Title (Required)"
@@ -48,5 +50,5 @@ const mapStateToProps = state => ({ song: state.getSong.song, loginError: state.
 
 export default connect(
   mapStateToProps,
-  { setSong, getSongs }
+  { setSong, getSongs, backToLanding }
 )(MusicPage);

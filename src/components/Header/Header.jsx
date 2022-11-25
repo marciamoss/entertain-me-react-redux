@@ -9,7 +9,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 
 const Header = ({userId, userName, authChange, showError, closeModal}) => {
   const location = useLocation();
-  const showHeader = (["/", "/music", "/movies", "/books", "/videos"].filter(r => r===location.pathname)).length>0;
+  const showHeader = (["/", "/music", "/news", "/movies", "/books", "/videos"].filter(r => r===location.pathname)).length>0;
   if (!showHeader) {
     return <PageNotFound/>;
   }

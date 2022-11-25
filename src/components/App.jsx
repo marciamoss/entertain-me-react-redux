@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Header from "./Header/Header";
 import LandingPage from "./LandingPage/LandingPage";
 import MusicPage from "./MusicPage/MusicPage";
+import NewsPage from "./NewsPage/NewsPage";
 import MoviesPage from "./MoviesPage/MoviesPage";
 import BooksPage from "./BooksPage/BooksPage";
 import VideosPage from "./VideosPage/VideosPage";
@@ -18,12 +19,13 @@ const App = ({userId}) => (
           <Route path="/" element={<LandingPage/>} />
           <Route path="/music" element={<MusicPage/>} />
           <Route path="/movies" element={<MoviesPage/>} />
+          <Route path="/news" element={<NewsPage/>} />
           <Route path="/books" element={<BooksPage/>} />
           <Route path="/videos" element={<VideosPage/>} />
         </>
       :
         <>
-          {["/", "/music", "/movies", "/books", "/videos"].map(r => <Route key={r} path={r} element={<LandingPage/>} />)}
+          {["/", "/music", "/news", "/movies", "/books", "/videos"].map(r => <Route key={r} path={r} element={<LandingPage/>} />)}
         </>
       }
     </Routes>

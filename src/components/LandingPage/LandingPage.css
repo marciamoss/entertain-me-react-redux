@@ -3,9 +3,10 @@ body {
 }
 
 .landing-page-content {
-  margin-top: 10% !important;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
+  position: relative;
+  top: 100px !important;
 }
 
 .landing-page-items {

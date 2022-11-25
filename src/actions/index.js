@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
+import axios from 'axios';
 
-import { AUTH_CHANGE, CLOSE_ERROR_MODAL, FETCH_SONGS, SET_SONG } from './types';
+import { AUTH_CHANGE, CLOSE_ERROR_MODAL, FETCH_SONGS, FETCH_NEWS, SET_SONG, BACK_TO_LANDING } from './types';
 
 require("dotenv").config();
 let Spotify = require('node-spotify-api');
@@ -40,9 +41,12 @@ export const authChange = () => async (dispatch, getState) => {
 
 export const closeErrorModal = (close) => ({type: CLOSE_ERROR_MODAL, payload: { close }});
 
+export const backToLanding = () => ({type: BACK_TO_LANDING});
+
 export const setSong = (song) => ({ type: SET_SONG, payload: {song: song, songsList: []} });
 
 export const getSongs = (song) => async (dispatch) => {
+  dispatch({type: CLOSE_ERROR_MODAL, payload: { close: false }});
   if(song) {
     let songName = (song).split(' ').join("+");
     let songsList = [];
@@ -75,4 +79,23 @@ export const getSongs = (song) => async (dispatch) => {
     }
     dispatch({ type: FETCH_SONGS, payload: {song, songsList} });
   }
+}
+
+export const getNews = (section) => async (dispatch) => {
+  dispatch({type: CLOSE_ERROR_MODAL, payload: { close: false }});
+  let newsList = [];
+  try {
+    const response = await axios.get(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${keys.nyt.apiKey}`);
+    if(response?.data?.results.length === 0 ) {
+      newsList.push({
+        id: 'NO NEWS FOUND999999',
+        name: 'NO NEWS FOUND'
+      });
+    } else {
+      newsList = response?.data?.results.filter(n => n.title !== '' && n.short_url !== '');
+    }
+  } catch (error) {
+    newsList = [{id: 'API ERROREDd999999', name: 'API ERRORED, Please try again', uri: "API ERROREDd999999"}];
+  }
+  dispatch({ type: FETCH_NEWS, payload: {newsList} });
 }
