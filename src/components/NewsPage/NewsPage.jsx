@@ -5,8 +5,9 @@ import { Icon, Button } from 'semantic-ui-react';
 
 import "./NewsPage.css";
 import { getNews, backToLanding } from '../../actions';
-import RenderedList from "../RenderedList/RenderedList";
 import LandingPage from "../LandingPage/LandingPage";
+
+import NewsPageList from "./NewsPageList";
 
 const NewsPage = ({getNews, loginError, backToLanding}) => {
   if (loginError) {
@@ -23,9 +24,9 @@ const NewsPage = ({getNews, loginError, backToLanding}) => {
       <div className="ui container">
         <h2>Pick a section for news</h2>
       {["Arts", "Automobiles", "Books", "Business", "Fashion", "Food", "Health", "Home", "Insider", "Magazine", "NY Region", "obituaries", "Opinion", "Politics", "Real Estate", "Science", "Sports", "Sunday Review", "Technology", "Theater", "T-Magazine", "Travel", "Upshot", "US", "World"].map(section => 
-        <Button className="section" key={section} onClick={() => getNews(section.toLowerCase().replace(/\s+/g, ''))}><h4>{section}</h4></Button>)}
+        <Button className="section" key={section} onClick={() => getNews(section)}><h4>{section}</h4></Button>)}
       </div> 
-      <RenderedList/>
+      <NewsPageList/>
     </div>
   )
 }

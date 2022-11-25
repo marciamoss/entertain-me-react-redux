@@ -85,7 +85,7 @@ export const getNews = (section) => async (dispatch) => {
   dispatch({type: CLOSE_ERROR_MODAL, payload: { close: false }});
   let newsList = [];
   try {
-    const response = await axios.get(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${keys.nyt.apiKey}`);
+    const response = await axios.get(`https://api.nytimes.com/svc/topstories/v2/${section.toLowerCase().replace(/\s+/g, '')}.json?api-key=${keys.nyt.apiKey}`);
     if(response?.data?.results.length === 0 ) {
       newsList.push({
         id: 'NO NEWS FOUND999999',
@@ -97,5 +97,5 @@ export const getNews = (section) => async (dispatch) => {
   } catch (error) {
     newsList = [{id: 'API ERROREDd999999', name: 'API ERRORED, Please try again', uri: "API ERROREDd999999"}];
   }
-  dispatch({ type: FETCH_NEWS, payload: {newsList} });
+  dispatch({ type: FETCH_NEWS, payload: {section, newsList} });
 }

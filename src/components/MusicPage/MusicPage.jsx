@@ -5,8 +5,9 @@ import { Icon, Button } from 'semantic-ui-react';
 
 import { setSong, getSongs, backToLanding } from '../../actions';
 import "./MusicPage.css";
-import RenderedList from "../RenderedList/RenderedList";
 import LandingPage from "../LandingPage/LandingPage";
+
+import MusicPageList from "./MusicPageList";
 
 const MusicPage = ({setSong, song, getSongs, loginError, backToLanding}) => {
   useEffect(() => {
@@ -41,7 +42,7 @@ const MusicPage = ({setSong, song, getSongs, loginError, backToLanding}) => {
             />
         </div>
       </div>
-      <RenderedList/>
+      <MusicPageList/>
     </div>
   )
 }

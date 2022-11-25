@@ -1,13 +1,14 @@
 import { FETCH_NEWS, AUTH_CHANGE, CLOSE_ERROR_MODAL, BACK_TO_LANDING } from '../actions/types';
 
 const INTIAL_STATE = {
-  newsList: []
+  newsList: [],
+  section: ''
 };
 
 const getNewsReducers = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_NEWS:
-      return { ...state, newsList: action.payload.newsList};
+      return { ...state, newsList: action.payload.newsList, section: action.payload.section};
     case CLOSE_ERROR_MODAL:
       return INTIAL_STATE;
     case AUTH_CHANGE:
