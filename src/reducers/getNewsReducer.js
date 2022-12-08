@@ -1,4 +1,4 @@
-import { FETCH_NEWS, AUTH_CHANGE, CLOSE_ERROR_MODAL, BACK_TO_LANDING } from '../actions/types';
+import { FETCH_NEWS, AUTH_CHANGE, CLOSE_ERROR_MODAL, BACK_TO_LANDING, NEWS_LANDING } from '../actions/types';
 
 const INTIAL_STATE = {
   newsList: [],
@@ -14,6 +14,8 @@ const getNewsReducers = (state = INTIAL_STATE, action) => {
     case AUTH_CHANGE:
       return INTIAL_STATE;
     case BACK_TO_LANDING:
+      return INTIAL_STATE;
+    case NEWS_LANDING:
       return INTIAL_STATE;
     default:
       return state;

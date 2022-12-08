@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MovingComponent from 'react-moving-text'
+import MovingComponent from 'react-moving-text';
 import { connect } from "react-redux";
 import "./LandingPage.css";
 

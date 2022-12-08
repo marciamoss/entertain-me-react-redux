@@ -20,6 +20,14 @@
   background-color: inherit !important;
 }
 
+.news-button {
+  color: blue !important;
+  font-style: italic !important;
+  background-color: inherit !important;
+  background-color: inherit !important;
+  float: right;
+}
+
 .section{
   background-color: inherit !important;
 }

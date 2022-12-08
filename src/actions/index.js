@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
 
-import { AUTH_CHANGE, CLOSE_ERROR_MODAL, FETCH_SONGS, FETCH_NEWS, SET_SONG, BACK_TO_LANDING } from './types';
+import { AUTH_CHANGE, CLOSE_ERROR_MODAL, FETCH_SONGS, FETCH_NEWS, SET_SONG, BACK_TO_LANDING, NEWS_LANDING } from './types';
 
 require("dotenv").config();
 let Spotify = require('node-spotify-api');
@@ -42,6 +42,8 @@ export const authChange = () => async (dispatch, getState) => {
 export const closeErrorModal = (close) => ({type: CLOSE_ERROR_MODAL, payload: { close }});
 
 export const backToLanding = () => ({type: BACK_TO_LANDING});
+
+export const newsLanding = () => ({type: NEWS_LANDING});
 
 export const setSong = (song) => ({ type: SET_SONG, payload: {song: song, songsList: []} });
 
